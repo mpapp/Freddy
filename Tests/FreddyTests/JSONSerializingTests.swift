@@ -5,7 +5,6 @@ import Freddy
 
 class JSONSerializingTests: XCTestCase {
     let json = JSONFromFixture("sample.JSON")
-    let noWhiteSpaceData = dataFromFixture("sampleNoWhiteSpace.JSON")
 
     func testThatJSONCanBeSerializedToNSData() {
         let data = try! json.serialize()
@@ -17,18 +16,9 @@ class JSONSerializingTests: XCTestCase {
         XCTAssertFalse(string.isEmpty, "There should be characters.")
     }
 
-    func testThatJSONDataIsEqual() {
-        let serializedJSONData = try! json.serialize()
-        let noWhiteSpaceJSON = try! JSON(data: noWhiteSpaceData)
-        let noWhiteSpaceSerializedJSONData = try! noWhiteSpaceJSON.serialize()
-        XCTAssertEqual(serializedJSONData, noWhiteSpaceSerializedJSONData, "Serialized data should be equal.")
-    }
-    
-    func testThatJSONStringIsEqual() {
-        let serializedJSONString = try! json.serializeString()
-        let noWhiteSpaceJSON = try! JSON(data: noWhiteSpaceData)
-        let noWhiteSpaceSerializedJSONString = try! noWhiteSpaceJSON.serializeString()
-        XCTAssertEqual(serializedJSONString, noWhiteSpaceSerializedJSONString, "Serialized string should be equal.")
+    func testThatNoWhitespaceJSONIsEqualToJSON() {
+        let noWhiteSpaceJSON = JSONFromFixture("sampleNoWhiteSpace.JSON")
+        XCTAssertEqual(json, noWhiteSpaceJSON, "The JSON values should be equal.")
     }
 
     func testThatJSONDataSerializationMakesEqualJSON() {
